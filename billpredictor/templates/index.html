@@ -13,7 +13,7 @@
 
         <div class="description">
             <p>Enter the number of electricity units consumed, and our AI-powered predictor will estimate your bill.</p>
-            <p>The prediction is based on historical electricity bills using a **regression factor of 0.937**, ensuring accurate estimations.</p>
+            <p>The prediction is based on historical electricity bills using a <b style="color: red;">**regression factor of 0.937**,</b> ensuring accurate estimations.</p>
         </div>
 
         <div class="card">
@@ -28,7 +28,7 @@
             {% if bill_amount is not None %}
                 <div class="result">
                     <h3>💰 Predicted Bill Amount:</h3>
-                    <p><strong>₹{{ bill_amount }}</strong></p>
+                    <p><strong>₹{{ bill_amount|floatformat:2 }}</strong></p>
                 </div>
             {% endif %}
         </div>

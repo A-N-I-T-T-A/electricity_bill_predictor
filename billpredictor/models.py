@@ -1,14 +1,20 @@
-from django.db import models
-
-# Create your models here.
 import pandas as pd
+import numpy as np
+from sklearn.linear_model import LinearRegression
 
 class BillPredictor:
     def __init__(self, dataset_path):
         self.dataset = pd.read_csv(dataset_path)
-        self.dataset = self.dataset.sort_values(by='Units_Consumed')
+        self.model = LinearRegression()
+
+        # Prepare the data
+        X = self.dataset['Units_Consumed'].values.reshape(-1, 1)
+        y = self.dataset['Electricity_Bill'].values        # Dependent variable
+
+        # Train the model
+        self.model.fit(X, y)
 
     def predict_bill(self, units):
-        closest_row = self.dataset.iloc[(self.dataset['Units_Consumed'] - units).abs().argsort()[:1]]
-        
-        return float(closest_row['Electricity_Bill'].values[0])
+        units_array = np.array([[units]])  # Convert to 2D array for prediction
+        prediction = self.model.predict(units_array)
+        return float(prediction[0])  # Convert to float for easy display
