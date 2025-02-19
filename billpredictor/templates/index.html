@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electricity Bill Predictor</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>🔌 Electricity Bill Predictor</h1>
+
+        <div class="description">
+            <p>Enter the number of electricity units consumed, and our AI-powered predictor will estimate your bill.</p>
+            <p>The prediction is based on historical electricity bills using a **regression factor of 0.937**, ensuring accurate estimations.</p>
+        </div>
+
+        <div class="card">
+            <h2>Predict Your Bill</h2>
+            <form method="POST">
+                {% csrf_token %}
+                <label for="units">🔢 Enter Units Consumed:</label>
+                <input type="number" step="0.01" name="units" placeholder="e.g., 150.5" required>
+                <button type="submit">⚡ Predict Bill</button>
+            </form>
+            
+            {% if bill_amount is not None %}
+                <div class="result">
+                    <h3>💰 Predicted Bill Amount:</h3>
+                    <p><strong>₹{{ bill_amount }}</strong></p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
