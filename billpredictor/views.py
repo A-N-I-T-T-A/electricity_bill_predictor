@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from .models import BillPredictor
+from django.conf import settings
 import os
 
 # Load the dataset when the server starts
-dataset_path = os.path.join(os.path.dirname(__file__), '../electricity_bill.csv')
+dataset_path = os.path.join(settings.BASE_DIR, 'billpredictor', 'static', 'electricity_bill.csv')
 predictor = BillPredictor(dataset_path)
 
 def predict_view(request):
